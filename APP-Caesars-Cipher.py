@@ -6,7 +6,7 @@ shift = int(input("Type the shift number:\n"))
 
 # Creating a function called 'encrypt' that takes the 'text' and 'shift' as inputs. 
 def encrypt (plain_text, shift_amount):
-    cipher_text = ""
+    cipher_text = "" # needs to be declared above the for loop, otherwise append wouldn't work. Each new_letter would replace the previous one
     
     for letter in plain_text:    
         letter_index = alphabet.index(letter)
