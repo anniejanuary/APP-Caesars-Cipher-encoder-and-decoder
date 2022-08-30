@@ -41,9 +41,9 @@ print(ascii_art.logo)
 
 # 4: asking the user if they want to restart the cipher program
 
-continue = True
+continue_cipher = True
 
-while continue: # implied that continue == True
+while continue_cipher: # implied that continue == True
      
     direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
     text = input("Type your message:\n").lower()
@@ -54,7 +54,7 @@ while continue: # implied that continue == True
 
     decision = input("Would you like to play again? Type 'yes' or 'no': \n")
     if decision == "no":
-        continue = False
+        continue_cipher = False
         print("Bye!")
 
 
