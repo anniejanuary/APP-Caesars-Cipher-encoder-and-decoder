@@ -6,41 +6,47 @@ shift = int(input("Type the shift number:\n"))
 
 
 # 1: Combining the encrypt() and decrypt() functions into a single function called caesar().
-def caesar (plain_text, encoded_text, shift_amount):
-    
-    # 'encrypt' function integrated into caesar() function (takes the 'text' and 'shift' as inputs)
-    if direction == "encode":
-        cipher_text = ""
+def caesar (start_text, shift_amount, cipher_direction): # before I tried: def caesar (plain_text, encoded_text, shift_amount) AND IT WORKED JUST FINE, TOO
+                                                         # -> but no need to different. text type, it's just a starting text. Also task said: include direction.
+                                                         # I call these (parameters) whatever I want, doesnt matter, I just need to call the function with (arguments) later / the actual value. OR: (parameter = argument)
         
-        for letter in plain_text:    
-            letter_index = alphabet.index(letter)
-            
+    # BEFORE i had >>cipher_text = ""<< here, same as >>plain_text = ""<< below. now to simplify I just have >>end_text = ""<<
+    end_text = ""
+    
+    for letter in start_text:    #BEFORE combining encode and decode functions I differentiated between "plain_text" and "encoded_text", no need for that now in the spirit of simplification
+        letter_index = alphabet.index(letter)
+        
+        # 'encrypt' function integrated into caesar() function (takes the 'text' and 'shift' as inputs)
+        if cipher_direction == "encode":
             # shifting each letter of the 'text' forwards in the alphabet by the shift amount and print the encrypted text.
             new_letter_index = (letter_index + shift_amount) % 26
             # modulo for (letter_index + shift_amount) below 26: https://www.freecodecamp.org/news/content/images/2019/09/image-197.png
             # another expl: https://www.youtube.com/watch?v=Y6YTnkZ10qw
             
-            new_letter = alphabet[new_letter_index]
-            cipher_text += new_letter
-        
-        print(f"The encoded text is:\n{cipher_text}")
-        
-        
-    # 'decrypt' function integrated into caesar() function (takes the 'text' and 'shift' as inputs)
-    if direction == "decode":
-        
-        plain_text = ""
+        # 'decrypt' function integrated into caesar() function (takes the 'text' and 'shift' as inputs)    
+        if cipher_direction == "decode":
+            #same as in encrypt function, but subtracting the shuft amount
+            new_letter_index = (letter_index - shift_amount) % 26  # ANOTHER WAY, MOVING IT OUTSIDE OF THE FORLOOP: 
+                                                                   # if cipher_direction == "decode": || shift_amount *= -1  -> switches to substraction
+                
+                                                                   #OUTSIDE THE LOOP so that shift_amount doesn't get looped and mangled : 
+                                                                   # 1. loop: shift_amount: eg. 5 * -1 = -5 || 2. loop: -5 * -1 = 5 etc. 
+                                                                   # so that consecutive letters are encoded in diff directions in the alphabet
+                                                                   
+        new_letter = alphabet[new_letter_index]
+        end_text += new_letter    # BEFORE it was cipher_text in encode function or plain_text in decode function instead of end_text
     
-        #same as in encrypt function, but subtracting the shuft amount
-        for letter in encoded_text:
-            letter_index = alphabet.index(letter)
-            new_letter_index = (letter_index - shift_amount) % 26
-            new_letter = alphabet[new_letter_index]
-            plain_text += new_letter
-        
-        print(f"The decoded text is:\n{plain_text}")
+    print(f"The {cipher_direction}d text is:\n{end_text}")    # BEFORE it was cipher_text in encode f. and plain_text in decode f. instead of end_text
 
-#BEFORE 1:
+
+#2: Call the caesar() function, passing over the 'text', 'shift' and 'direction' values.
+caesar (start_text = text, shift_amount = shift, cipher_direction = direction)
+
+
+
+
+# BEFORE COMBINING ENCODE AND DECODE FUNCTIONS:
+
 # Creating a function called 'encrypt' that takes the 'text' and 'shift' as inputs. 
 # def encrypt (plain_text, shift_amount):
 #     cipher_text = ""
@@ -72,10 +78,6 @@ def caesar (plain_text, encoded_text, shift_amount):
 #     print(f"The decoded text is:\n{plain_text}")
 
 
-#2: Call the caesar() function, passing over the 'text', 'shift' and 'direction' values.
-caesar (plain_text = text, encoded_text = text, shift_amount = shift)
-
-# BEFORE 2:
 #Check if the user wanted to encrypt or decrypt the message by checking the 'direction' variable.
 #Then call the correct function based on that 'direction' variable. You should be able to test the code to encrypt
 #*AND* decrypt a message.
