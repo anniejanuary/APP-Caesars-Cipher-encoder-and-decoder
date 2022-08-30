@@ -6,7 +6,7 @@ shift = int(input("Type the shift number:\n"))
 
 # Creating a function called 'encrypt' that takes the 'text' and 'shift' as inputs. 
 def encrypt (plain_text, shift_amount):
-    cipher_text = "" # needs to be declared above the for loop, otherwise append wouldn't work. Each new_letter would replace the previous one
+    cipher_text = ""
     
     for letter in plain_text:    
         letter_index = alphabet.index(letter)
@@ -20,5 +20,24 @@ def encrypt (plain_text, shift_amount):
         cipher_text += new_letter
     
     print(f"The encoded text is:\n{cipher_text}")
+    
+# function called 'decrypt' that takes the 'text' and 'shift' as inputs.
+def decrypt (encoded_text, shift_amount):
+    plain_text = ""
+    
+    #same as in encrypt function, but subtracting the shuft amount
+    for letter in encoded_text:
+        letter_index = alphabet.index(letter)
+        new_letter_index = (letter_index - shift_amount) % 26
+        new_letter = alphabet[new_letter_index]
+        plain_text += new_letter
+    
+    print(f"The decoded text is:\n{plain_text}")
 
-encrypt(text, shift)
+#Check if the user wanted to encrypt or decrypt the message by checking the 'direction' variable.
+#Then call the correct function based on that 'direction' variable. You should be able to test the code to encrypt
+#*AND* decrypt a message.
+if direction == "encode":
+    encrypt (plain_text = text, shift_amount = shift)
+elif direction == "decode":
+    decrypt (encoded_text = text, shift_amount = shift)
